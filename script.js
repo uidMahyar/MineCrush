@@ -341,10 +341,12 @@ const BG_THEMES = {
 function applyBlockTheme(key) {
   if (!BLOCK_THEMES[key]) key = 'classic';
   const gridEl = document.getElementById('grid');
-  if (gridEl) {
-    gridEl.classList.remove('theme-nether', 'theme-ocean', 'theme-crystal');
-    if (key !== 'classic') gridEl.classList.add('theme-' + key);
-  }
+  const goalEl = document.getElementById('goal-wrap');
+  [gridEl, goalEl].forEach(el => {
+    if (!el) return;
+    el.classList.remove('theme-nether', 'theme-ocean', 'theme-crystal');
+    if (key !== 'classic') el.classList.add('theme-' + key);
+  });
   localStorage.setItem('mc_theme', key);
 }
 
@@ -1084,7 +1086,7 @@ function updateGoalHUD() {
     const item = document.createElement('div');
     item.className = 'goal-item' + (done ? ' goal-done' : '');
     const img = document.createElement('img');
-    img.src = BLOCK_IMG[type]; img.className = 'goal-img';
+    img.src = BLOCK_IMG[type]; img.className = 'goal-img'; img.alt = type;
     const bar = document.createElement('div');
     bar.className = 'goal-bar';
     const fill = document.createElement('div');
