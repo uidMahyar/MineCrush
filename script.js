@@ -326,7 +326,17 @@ const G = 7;
 const TYPES = ['diamond', 'redstone', 'emerald', 'gold'];
 
 // ── STORE: BLOCK THEMES & BACKGROUNDS (visual filters, no new art needed) ──
-const BLOCK_THEMES = { classic: 1, nether: 1, ocean: 1, crystal: 1 };
+const BLOCK_THEMES = { classic: 1, nether: 1, ocean: 1, crystal: 1, classic2: 1 };
+// classic2 swaps in real replacement art per type instead of tinting the default gems
+const BLOCK_IMAGE_SETS = {
+  classic2: {
+    diamond:  'images/enderman.png',
+    redstone: 'images/skeleton.png',
+    emerald:  'images/villager.png',
+    gold:     'images/creeper.png'
+  }
+};
+const CLASSIC_BLOCK_IMG = { ...BLOCK_IMG }; // snapshot of the default gem art, used to restore non-image themes
 const BG_THEMES = {
   sunset: { overlay: 'rgba(4,0,18,.5)',  filter: 'none' },
   night:  { overlay: 'rgba(5,8,35,.78)', filter: 'brightness(.7) saturate(.85)' },
@@ -347,6 +357,9 @@ function applyBlockTheme(key) {
     el.classList.remove('theme-nether', 'theme-ocean', 'theme-crystal');
     if (key !== 'classic') el.classList.add('theme-' + key);
   });
+  const swap = BLOCK_IMAGE_SETS[key];
+  TYPES.forEach(t => { BLOCK_IMG[t] = swap ? swap[t] : CLASSIC_BLOCK_IMG[t]; });
+  if (cellEls.length) render(); // refresh any grid already on screen so the swap shows immediately
   localStorage.setItem('mc_theme', key);
 }
 
