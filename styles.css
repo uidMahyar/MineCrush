@@ -149,20 +149,20 @@ html,body{
 
 /* per-block-type retinting so each theme lands in one cohesive color family
    while keeping the 4 gem types distinguishable from each other */
-#grid.theme-nether img[alt="diamond"]{filter:hue-rotate(180deg) saturate(1.3) brightness(1.05);}
-#grid.theme-nether img[alt="redstone"]{filter:hue-rotate(6deg) saturate(1.25) brightness(1.1);}
-#grid.theme-nether img[alt="emerald"]{filter:hue-rotate(215deg) saturate(1.3) brightness(.8);}
-#grid.theme-nether img[alt="gold"]{filter:hue-rotate(-13deg) saturate(1.15) brightness(1.05);}
+#grid.theme-nether img[alt="diamond"], #goal-wrap.theme-nether img[alt="diamond"]{filter:hue-rotate(180deg) saturate(1.3) brightness(1.05);}
+#grid.theme-nether img[alt="redstone"], #goal-wrap.theme-nether img[alt="redstone"]{filter:hue-rotate(6deg) saturate(1.25) brightness(1.1);}
+#grid.theme-nether img[alt="emerald"], #goal-wrap.theme-nether img[alt="emerald"]{filter:hue-rotate(215deg) saturate(1.3) brightness(.8);}
+#grid.theme-nether img[alt="gold"], #goal-wrap.theme-nether img[alt="gold"]{filter:hue-rotate(-13deg) saturate(1.15) brightness(1.05);}
 
-#grid.theme-ocean img[alt="diamond"]{filter:saturate(1.15);}
-#grid.theme-ocean img[alt="redstone"]{filter:hue-rotate(194deg) saturate(1.2);}
-#grid.theme-ocean img[alt="emerald"]{filter:hue-rotate(45deg) saturate(1.15);}
-#grid.theme-ocean img[alt="gold"]{filter:hue-rotate(177deg) saturate(1.2);}
+#grid.theme-ocean img[alt="diamond"], #goal-wrap.theme-ocean img[alt="diamond"]{filter:saturate(1.15);}
+#grid.theme-ocean img[alt="redstone"], #goal-wrap.theme-ocean img[alt="redstone"]{filter:hue-rotate(194deg) saturate(1.2);}
+#grid.theme-ocean img[alt="emerald"], #goal-wrap.theme-ocean img[alt="emerald"]{filter:hue-rotate(45deg) saturate(1.15);}
+#grid.theme-ocean img[alt="gold"], #goal-wrap.theme-ocean img[alt="gold"]{filter:hue-rotate(177deg) saturate(1.2);}
 
-#grid.theme-crystal img[alt="diamond"]{filter:hue-rotate(95deg) saturate(1.05) brightness(1.12);}
-#grid.theme-crystal img[alt="redstone"]{filter:hue-rotate(-46deg) saturate(1.1) brightness(1.18);}
-#grid.theme-crystal img[alt="emerald"]{filter:hue-rotate(135deg) saturate(1.05) brightness(1.12);}
-#grid.theme-crystal img[alt="gold"]{filter:hue-rotate(-83deg) saturate(1.1) brightness(1.2);}
+#grid.theme-crystal img[alt="diamond"], #goal-wrap.theme-crystal img[alt="diamond"]{filter:hue-rotate(95deg) saturate(1.05) brightness(1.12);}
+#grid.theme-crystal img[alt="redstone"], #goal-wrap.theme-crystal img[alt="redstone"]{filter:hue-rotate(-46deg) saturate(1.1) brightness(1.18);}
+#grid.theme-crystal img[alt="emerald"], #goal-wrap.theme-crystal img[alt="emerald"]{filter:hue-rotate(135deg) saturate(1.05) brightness(1.12);}
+#grid.theme-crystal img[alt="gold"], #goal-wrap.theme-crystal img[alt="gold"]{filter:hue-rotate(-83deg) saturate(1.1) brightness(1.2);}
 
 .booster-icon{font-size:46px;line-height:1;filter:drop-shadow(0 0 8px rgba(255,215,0,.5));margin-top:4px;}
 
