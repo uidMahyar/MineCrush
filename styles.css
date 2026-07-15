@@ -143,6 +143,7 @@ html,body{
 
 .theme-preview{display:grid;grid-template-columns:1fr 1fr;gap:3px;width:56px;height:56px;border-radius:6px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.5);}
 .theme-swatch{position:relative;}
+.theme-swatch img{width:100%;height:100%;object-fit:cover;display:block;}
 .theme-swatch::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.35),transparent 55%);}
 
 .bg-preview{width:100%;height:56px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.5);background-size:cover;background-position:center;}
