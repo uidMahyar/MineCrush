@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1a0a2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>MineCrush ⛏</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Persistent layers -->
+<div id="bg-layer"></div>
+<div id="bg-overlay"></div>
+<div id="flash-overlay"></div>
+
+<!-- ══ START SCREEN ══════════════════════════════ -->
+<div id="screen-start" class="screen">
+  <div id="float-blocks"></div>
+  <div class="start-content">
+    <div id="main-title">
+      <img src="images/logo-title.png" alt="ماین کراش">
+    </div>
+    <div class="best-card">
+      <div class="lbl">بهترین امتیاز</div>
+      <div class="val" id="best-display">0</div>
+    </div>
+    <button id="play-btn" onclick="startLevel(maxLevel)"><img src="images/icon-play.png" alt="شروع بازی"></button>
+    <div class="start-hint">3+ بلوک جفت کن · ویژه بساز · عمیق‌تر حفاری کن</div>
+  </div>
+</div>
+
+<!-- ══ LEVELS SCREEN ═════════════════════════════ -->
+<div id="screen-levels" class="screen">
+  <div class="lvl-header">
+    <button id="back-btn" onclick="goToStart()">◀</button>
+    <span class="lvl-title">⛏ انتخاب مرحله</span>
+  </div>
+  <div id="level-path-wrap">
+    <div id="level-path"></div>
+  </div>
+  <div id="toast"></div>
+</div>
+
+<!-- ══ BOTTOM NAV ════════════════════════════════ -->
+<div id="bottom-nav">
+ <div id="nav-glass">
+  <button id="nav-home-btn" onclick="goToStart()">
+    <img src="images/icon-nav-home.png" alt="خانه">
+  </button>
+  <button id="nav-levels-btn" onclick="goToLevels()">
+    <img src="images/icon-nav-levels.png" alt="مراحل">
+  </button>
+  <button id="nav-store-btn" onclick="goToStore()">
+   <img src="images/icon-nav-store.png" alt="فروشگاه">
+  </button>
+ </div>
+</div>
+
+<!-- ══ STORE SCREEN ══════════════════════════════ -->
+<div id="screen-store" class="screen">
+  <div class="lvl-header">
+    <button id="store-back-btn" onclick="goToStart()">◀</button>
+    <span class="lvl-title">🛍️ فروشگاه</span>
+  </div>
+
+  <div id="store-tabs">
+    <button class="store-tab active" data-tab="themes" onclick="switchStoreTab('themes')">تم بلوک‌ها</button>
+    <button class="store-tab" data-tab="boosters" onclick="switchStoreTab('boosters')">بوستر</button>
+    <button class="store-tab" data-tab="backgrounds" onclick="switchStoreTab('backgrounds')">پس‌زمینه</button>
+  </div>
+
+  <div id="store-content-wrap">
+    <div id="store-themes" class="store-panel active">
+      <div class="tier-jump-row">
+        <div class="tier-jump-pill tier-common" onclick="scrollToTier('theme-tier-common')">معمولی</div>
+        <div class="tier-jump-pill tier-rare" onclick="scrollToTier('theme-tier-rare')">کمیاب</div>
+        <div class="tier-jump-pill tier-epic" onclick="scrollToTier('theme-tier-epic')">حماسی</div>
+        <div class="tier-jump-pill tier-legendary" onclick="scrollToTier('theme-tier-legendary')">افسانه‌ای</div>
+      </div>
+
+      <div id="theme-tier-common">
+      <div class="store-tier-label tier-common">✦ معمولی — رایگان</div>
+      <div class="store-tier-grid">
+      <div class="store-card active-item" data-key="classic" style="--d:.02s" onclick="selectTheme(this)">
+        <div class="theme-preview">
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#8be9f5,#2596ba 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#e8503a,#8a1f10 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#5be05b,#1d8e1d 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#ffd76b,#cc8800 70%);"></div>
+        </div>
+        <div class="store-card-name">کلاسیک</div>
+        <div class="store-card-tag active-tag">فعال</div>
+      </div>
+
+      <div class="store-card" data-key="nether" style="--d:.06s" onclick="selectTheme(this)">
+        <div class="theme-preview">
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#ff8a3d,#a52a00 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#ff4d4d,#7a0000 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#3a3a3a,#0a0a0a 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#ffb03d,#8a4b00 70%);"></div>
+        </div>
+        <div class="store-card-name">جهنمی</div>
+        <div class="store-card-tag price-tag">انتخاب</div>
+      </div>
+
+      <div class="store-card" data-key="ocean" style="--d:.1s" onclick="selectTheme(this)">
+        <div class="theme-preview">
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#6be0ff,#0a5a8f 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#3aa0d8,#0a3a66 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#1de0c0,#0a6e5c 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#0a3a66,#021a33 70%);"></div>
+        </div>
+        <div class="store-card-name">اقیانوسی</div>
+        <div class="store-card-tag price-tag">انتخاب</div>
+      </div>
+
+      <div class="store-card" data-key="crystal" style="--d:.14s" onclick="selectTheme(this)">
+        <div class="theme-preview">
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#ff9ad6,#b8317e 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#c79aff,#6b2fb8 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#9ad6ff,#2f8ab8 70%);"></div>
+          <div class="theme-swatch" style="background:radial-gradient(circle at 35% 30%,#ffe29a,#b88a2f 70%);"></div>
+        </div>
+        <div class="store-card-name">کریستالی</div>
+        <div class="store-card-tag price-tag">انتخاب</div>
+      </div>
+      </div>
+      </div>
+
+      <div id="theme-tier-rare">
+      <div class="store-tier-label tier-rare">✦✦ کمیاب</div>
+      <div class="store-tier-grid">
+      <div class="store-card locked-card" style="--d:.02s">
+        <div class="booster-icon">🔒</div>
+        <div class="store-card-name">به‌زودی</div>
+        <div class="store-card-desc">منتظر پک بعدی</div>
+      </div>
+      </div>
+      </div>
+
+      <div id="theme-tier-epic">
+      <div class="store-tier-label tier-epic">✦✦✦ حماسی</div>
+      <div class="store-tier-grid">
+      <div class="store-card locked-card" style="--d:.02s">
+        <div class="booster-icon">🔒</div>
+        <div class="store-card-name">به‌زودی</div>
+        <div class="store-card-desc">منتظر پک بعدی</div>
+      </div>
+      </div>
+      </div>
+
+      <div id="theme-tier-legendary">
+      <div class="store-tier-label tier-legendary">✦✦✦✦ افسانه‌ای</div>
+      <div class="store-tier-grid">
+      <div class="store-card locked-card" style="--d:.02s">
+        <div class="booster-icon">🔒</div>
+        <div class="store-card-name">به‌زودی</div>
+        <div class="store-card-desc">منتظر پک بعدی</div>
+      </div>
+      </div>
+      </div>
+    </div>
+
+    <div id="store-boosters" class="store-panel">
+      <div class="store-tier-grid">
+      <div class="store-card" data-key="hammer" style="--d:.02s" onclick="previewBooster(this)">
+        <div class="booster-icon">🔨</div>
+        <div class="store-card-name">چکش</div>
+        <div class="store-card-desc">یک بلوک دلخواه رو نابود می‌کنه</div>
+        <div class="store-card-tag price-tag">🪙 150</div>
+      </div>
+
+      <div class="store-card" data-key="shuffle" style="--d:.06s" onclick="previewBooster(this)">
+        <div class="booster-icon">🔀</div>
+        <div class="store-card-name">تعویض</div>
+        <div class="store-card-desc">کل صفحه رو دوباره می‌چینه</div>
+        <div class="store-card-tag price-tag">🪙 120</div>
+      </div>
+
+      <div class="store-card" data-key="extramove" style="--d:.1s" onclick="previewBooster(this)">
+        <div class="booster-icon">➕</div>
+        <div class="store-card-name">حرکت اضافه</div>
+        <div class="store-card-desc">۵ حرکت اضافه به مرحله</div>
+        <div class="store-card-tag price-tag">🪙 100</div>
+      </div>
+
+      <div class="store-card" data-key="colorbomb" style="--d:.14s" onclick="previewBooster(this)">
+        <div class="booster-icon">🌈</div>
+        <div class="store-card-name">بمب رنگی</div>
+        <div class="store-card-desc">تمام بلوک‌های یک رنگ رو می‌ترکونه</div>
+        <div class="store-card-tag price-tag">🪙 200</div>
+      </div>
+      </div>
+    </div>
+
+    <div id="store-backgrounds" class="store-panel">
+      <div class="tier-jump-row">
+        <div class="tier-jump-pill tier-common" onclick="scrollToTier('bg-tier-common')">معمولی</div>
+        <div class="tier-jump-pill tier-rare" onclick="scrollToTier('bg-tier-rare')">کمیاب</div>
+        <div class="tier-jump-pill tier-epic" onclick="scrollToTier('bg-tier-epic')">حماسی</div>
+        <div class="tier-jump-pill tier-legendary" onclick="scrollToTier('bg-tier-legendary')">افسانه‌ای</div>
+      </div>
+
+      <div id="bg-tier-common">
+      <div class="store-tier-label tier-common">✦ معمولی — رایگان</div>
+      <div class="store-tier-grid">
+      <div class="store-card active-item" data-key="night" style="--d:.02s" onclick="selectBg(this)">
+        <div class="bg-preview" style="background:radial-gradient(circle at 25% 20%,#e8ecff 0%,rgba(232,236,255,0) 18%),radial-gradient(circle at 70% 55%,#fff 0%,transparent 1.5%),radial-gradient(circle at 85% 30%,#fff 0%,transparent 1.5%),radial-gradient(circle at 55% 70%,#fff 0%,transparent 1%),linear-gradient(180deg,#0a0e2e 0%,#1a1a4a 55%,#2d1b4e 100%);"></div>
+        <div class="store-card-name">شب</div>
+        <div class="store-card-tag active-tag">فعال</div>
+      </div>
+
+      <div class="store-card" data-key="forest" style="--d:.06s" onclick="selectBg(this)">
+        <div class="bg-preview" style="background:radial-gradient(circle at 50% 10%,rgba(210,255,160,.4) 0%,rgba(210,255,160,0) 30%),linear-gradient(180deg,#6a9c4a 0%,#3d6b2f 55%,#1a3d1a 100%);"></div>
+        <div class="store-card-name">جنگل</div>
+        <div class="store-card-tag price-tag">انتخاب</div>
+      </div>
+
+      <div class="store-card" data-key="cave" style="--d:.1s" onclick="selectBg(this)">
+        <div class="bg-preview" style="background:radial-gradient(circle at 60% 72%,rgba(120,220,255,.45) 0%,rgba(120,220,255,0) 22%),linear-gradient(180deg,#4a423a 0%,#2a251f 55%,#0d0b09 100%);"></div>
+        <div class="store-card-name">غار</div>
+        <div class="store-card-tag price-tag">انتخاب</div>
+      </div>
+
+      <div class="store-card" data-key="darkwoods" style="--d:.14s" onclick="selectBg(this)">
+        <div class="bg-preview" style="background-image:url('images/store-preview-darkwoods.jpg');"></div>
+        <div class="store-card-name">جنگل تاریک</div>
+        <div class="store-card-tag price-tag">انتخاب</div>
+      </div>
+
+      <div class="store-card" data-key="moonpoppy" style="--d:.18s" onclick="selectBg(this)">
+        <div class="bg-preview" style="background-image:url('images/store-preview-moonpoppy.jpg');"></div>
+        <div class="store-card-name">دشت مهتابی</div>
+        <div class="store-card-tag price-tag">انتخاب</div>
+      </div>
+      </div>
+      </div>
+
+      <div id="bg-tier-rare">
+      <div class="store-tier-label tier-rare">✦✦ کمیاب</div>
+      <div class="store-tier-grid">
+      <div class="store-card" data-key="duocats" style="--d:.02s" onclick="selectBg(this)">
+        <div class="bg-preview" style="background-image:url('images/store-preview-duocats.jpg');"></div>
+        <div class="store-card-name">دوستان غروب</div>
+        <div class="store-card-tag price-tag">انتخاب</div>
+      </div>
+      </div>
+      </div>
+
+      <div id="bg-tier-epic">
+      <div class="store-tier-label tier-epic">✦✦✦ حماسی</div>
+      <div class="store-tier-grid">
+      <div class="store-card locked-card" style="--d:.02s">
+        <div class="booster-icon">🔒</div>
+        <div class="store-card-name">به‌زودی</div>
+        <div class="store-card-desc">منتظر پک بعدی</div>
+      </div>
+      </div>
+      </div>
+
+      <div id="bg-tier-legendary">
+      <div class="store-tier-label tier-legendary">✦✦✦✦ افسانه‌ای</div>
+      <div class="store-tier-grid">
+      <div class="store-card locked-card" style="--d:.02s">
+        <div class="booster-icon">🔒</div>
+        <div class="store-card-name">به‌زودی</div>
+        <div class="store-card-desc">منتظر پک بعدی</div>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GAME SCREEN ════════════════════════════════ -->
+<div id="screen-game" class="screen">
+  <div id="hdr">
+    <img id="title" src="images/logo-header.png" alt="MineCrush">
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="rst-btn" onclick="confirmRestart()" title="شروع دوباره">
+        <img src="images/icon-restart.png" alt="شروع دوباره">
+      </button>
+      <button id="lose-btn" onclick="voluntaryLose()" title="تسلیم شدن">
+        <img src="images/icon-surrender.png" alt="تسلیم شدن">
+      </button>
+      <button id="snd-btn" onclick="toggleSound()" title="موسیقی">
+        <img src="images/icon-sound.png" alt="موسیقی">
+      </button>
+    </div>
+  </div>
+
+  <div id="stats">
+    <div class="stat"><div class="slbl">امتیاز</div><div class="sval" id="sc-val">0</div></div>
+    <div class="stat"><div class="slbl">بهترین</div><div class="sval" id="bsc-val">0</div></div>
+    <div class="stat"><div class="slbl">حرکت</div><div class="sval" id="mv-val">30</div></div>
+    <div class="stat"><div class="slbl">مرحله</div><div class="sval" id="lv-val">1</div></div>
+  </div>
+
+  <div id="lbar-wrap">
+    <div id="lbar-outer"><div id="lbar-inner"></div></div>
+    <div id="lbar-lbl">مرحله بعد</div>
+  </div>
+
+  <div id="goal-wrap"></div>
+  <div id="combo"></div>
+  <div id="flash"></div>
+
+  <div id="gwrap">
+    <div id="gbox"><div id="grid"></div></div>
+  </div>
+
+  <div id="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#5dd5f5"></div>الماس</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#cc2200"></div>سنگ سرخ</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#17c442"></div>زمرد</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#f0a000"></div>طلا</div>
+  </div>
+
+  <div id="booster-tray">
+    <button class="boost-btn" data-type="hammer" onclick="useBooster('hammer')" title="چکش">🔨<span class="boost-count" data-count="hammer">0</span></button>
+    <button class="boost-btn" data-type="shuffle" onclick="useBooster('shuffle')" title="تعویض">🔀<span class="boost-count" data-count="shuffle">0</span></button>
+    <button class="boost-btn" data-type="extramove" onclick="useBooster('extramove')" title="حرکت اضافه">➕<span class="boost-count" data-count="extramove">0</span></button>
+    <button class="boost-btn" data-type="colorbomb" onclick="useBooster('colorbomb')" title="بمب رنگی">🌈<span class="boost-count" data-count="colorbomb">0</span></button>
+  </div>
+  <div id="help">جابه‌جا کن·3+ جفت کن·4=ویژه·ویژه‌ها رو ترکیب کن</div>
+
+  <!-- Game Over -->
+  <div id="over">
+    <h2>بازی تمام شد</h2>
+    <div id="over-sc">امتیاز: 0</div>
+    <div id="over-lv">مرحله: 1</div>
+    <div id="over-best">بهترین: 0</div>
+    <div class="btn-row">
+      <button class="big-btn" onclick="startLevel(level)">▶ تلاش دوباره</button>
+      <button class="big-btn alt" onclick="showScreen('levels')">📋 مراحل</button>
+    </div>
+  </div>
+
+  <!-- Win Panel -->
+  <div id="win-panel">
+    <div id="win-lv">مرحله تمام شد!</div>
+    <div id="win-sc">امتیاز: 0</div>
+    <div id="win-mv">حرکت باقی‌مانده: 0</div>
+    <div class="win-btns">
+      <button class="win-btn next" onclick="winNextLevel()">▶ مرحله بعد</button>
+      <button class="win-btn" onclick="winRetry()">🔄 تلاش دوباره</button>
+      <button class="win-btn" onclick="winLobby()">📋 مراحل</button>
+    </div>
+  </div>
+
+  <!-- Confirm Restart -->
+  <div id="confirm-overlay">
+    <p>مرحله ریست بشه؟<br>پیشرفتت از دست میره</p>
+    <div class="confirm-row">
+      <button class="cbtn red" onclick="doRestart()">بله</button>
+      <button class="cbtn" onclick="closeConfirm()">لغو</button>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
