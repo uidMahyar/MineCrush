@@ -339,9 +339,10 @@ const BLOCK_IMAGE_SETS = {
 const CLASSIC_BLOCK_IMG = { ...BLOCK_IMG }; // snapshot of the default gem art, used to restore non-image themes
 const BG_THEMES = {
   sunset: { overlay: 'rgba(4,0,18,.5)',  filter: 'none' },
-  night:  { overlay: 'rgba(5,8,35,.78)', filter: 'brightness(.7) saturate(.85)' },
-  forest: { overlay: 'rgba(6,25,10,.6)', filter: 'brightness(.85) hue-rotate(45deg) saturate(1.1)' },
-  cave:   { overlay: 'rgba(2,2,4,.85)',  filter: 'brightness(.5) saturate(.7)' },
+  night:  { photo: 'images/dark.png',   overlay: 'rgba(5,8,35,.78)', filter: 'none' },
+  forest: { photo: 'images/noon.png',   overlay: 'rgba(6,25,10,.6)', filter: 'none' },
+  cave:   { photo: 'images/rezero.png', overlay: 'rgba(2,2,4,.85)',  filter: 'none' },
+  classic: { photo: 'images/classic.png', overlay: 'rgba(4,0,18,.3)', filter: 'none' },
   darkwoods: { photo: 'images/bg-photo-darkwoods.jpg', overlay: 'rgba(4,0,18,.3)', filter: 'none' },
   moonpoppy: { photo: 'images/bg-photo-moonpoppy.jpg', overlay: 'rgba(4,0,18,.3)', filter: 'none' },
   duocats:   { photo: 'images/bg-photo-duocats.jpg',   overlay: 'rgba(30,10,0,.28)', filter: 'none' }
