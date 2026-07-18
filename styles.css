@@ -397,17 +397,33 @@ html,body{
 }
 #grid{display:grid;grid-template-columns:repeat(7,var(--cell));gap:var(--gap);padding:3px;direction:ltr;}
 
-.cell{width:var(--cell);height:var(--cell);position:relative;cursor:pointer;will-change:transform;contain:layout style;}
+.cell{width:var(--cell);height:var(--cell);position:relative;cursor:pointer;contain:layout style;}
 .cell.sel .blk{outline:2px solid rgba(255,255,255,.9);outline-offset:-2px;animation:selPulse .45s infinite alternate;}
 @keyframes selPulse{
   from{filter:brightness(1.2) drop-shadow(0 0 4px rgba(255,255,255,.6));}
   to{filter:brightness(1.5) drop-shadow(0 0 12px rgba(255,255,255,1));}
 }
 
-.blk{width:100%;height:100%;position:relative;contain:layout style paint;will-change:transform,opacity,filter;}
+.blk{width:100%;height:100%;position:relative;contain:layout style paint;}
 .bi{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;border:none;overflow:hidden;}
-.bi img{width:96%;height:96%;object-fit:contain;image-rendering:pixelated;pointer-events:none;filter:drop-shadow(0 2px 5px rgba(0,0,0,.7));will-change:filter,transform;transform:translateZ(0);}
+.bi img{width:96%;height:96%;object-fit:contain;image-rendering:pixelated;pointer-events:none;filter:drop-shadow(0 2px 5px rgba(0,0,0,.7));transform:translateZ(0);}
 .si{position:absolute;font-size:clamp(9px,calc(var(--cell)*.28),14px);bottom:1px;right:2px;z-index:10;color:#fff;text-shadow:0 0 6px #000,0 0 12px #000;pointer-events:none;}
+
+/* idle breathing — subtle life on the board between moves; transform-only, cheap, and lives on the
+   inner img (not .blk) so it never fights the swap/pop transforms applied to their parent */
+@keyframes idleBreath{
+  0%,100%{transform:translateZ(0) scale(1);}
+  50%{transform:translateZ(0) scale(1.03);}
+}
+.bi img{animation:idleBreath 3.2s ease-in-out infinite;}
+.blk.locked .bi img{animation:none;}
+.cell:nth-child(7n+1) .bi img{animation-delay:0s;}
+.cell:nth-child(7n+2) .bi img{animation-delay:.2s;}
+.cell:nth-child(7n+3) .bi img{animation-delay:.4s;}
+.cell:nth-child(7n+4) .bi img{animation-delay:.6s;}
+.cell:nth-child(7n+5) .bi img{animation-delay:.8s;}
+.cell:nth-child(7n+6) .bi img{animation-delay:1s;}
+.cell:nth-child(7n) .bi img{animation-delay:1.2s;}
 
 /* Grid entrance */
 .enter-drop{animation:dropEnter .32s cubic-bezier(.2,.9,.3,1.05) both;animation-delay:var(--ed,0s);}
