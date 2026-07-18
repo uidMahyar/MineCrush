@@ -376,15 +376,60 @@ function renderCustomBlockPacks() {
   });
 }
 const BG_THEMES = {
-  sunset: { overlay: 'rgba(4,0,18,.5)',  filter: 'none' },
-  night:  { photo: 'images/dark.png',   overlay: 'rgba(5,8,35,.3)', filter: 'none' },
-  forest: { photo: 'images/noon.png',   overlay: 'rgba(6,25,10,.3)', filter: 'none' },
-  cave:   { photo: 'images/rezero.png', overlay: 'rgba(2,2,4,.3)',  filter: 'none' },
-  classic: { photo: 'images/classic.png', overlay: 'rgba(4,0,18,.3)', filter: 'none' },
-  darkwoods: { photo: 'images/bg-photo-darkwoods.jpg', overlay: 'rgba(4,0,18,.3)', filter: 'none' },
-  moonpoppy: { photo: 'images/bg-photo-moonpoppy.jpg', overlay: 'rgba(4,0,18,.3)', filter: 'none' },
-  duocats:   { photo: 'images/bg-photo-duocats.jpg',   overlay: 'rgba(30,10,0,.28)', filter: 'none' }
+  sunset: { overlay: 'rgba(4,0,18,.5)',  filter: 'none' } // legacy fallback, no store card
 };
+
+// ── CUSTOM BACKGROUND PACKS ───────────────────────────────────────────
+// To add a new pack: copy one {...} entry below, change the fields, done.
+//   key     → unique id, English, no spaces (internal only, never shown)
+//   name    → Persian name shown on the store card
+//   tier    → 'common' | 'rare' | 'epic' | 'legendary'
+//   photo   → a static image path — use this OR video, not both
+//   video   → an .mp4 path for an animated background — loops, muted, autoplays
+//   preview → optional still image for the store-card thumbnail.
+//             For photo packs this defaults to the photo itself.
+//             For video packs, ALWAYS give one — the store list shows a still,
+//             not a live-playing video, to keep the shop screen light on battery.
+//   overlay → optional dark tint over the background for text readability.
+//             Defaults to rgba(0,0,0,.3) if left out.
+// Note: video is much heavier than a photo (file size, battery, decode cost) —
+// keep clips short and modestly sized if FPS/battery matters to you.
+const CUSTOM_BG_PACKS = [
+  { key:'classic',   name:'کلاسیک',      tier:'common', photo:'images/classic.png' },
+  { key:'darkwoods', name:'جنگل تاریک',  tier:'common', photo:'images/bg-photo-darkwoods.jpg', preview:'images/store-preview-darkwoods.jpg' },
+  { key:'moonpoppy', name:'دشت مهتابی',  tier:'common', photo:'images/bg-photo-moonpoppy.jpg', preview:'images/store-preview-moonpoppy.jpg' },
+  { key:'night',     name:'شب تاریک',    tier:'rare',   photo:'images/dark.png', overlay:'rgba(5,8,35,.3)' },
+  { key:'forest',    name:'غروب',        tier:'rare',   photo:'images/noon.png', overlay:'rgba(6,25,10,.3)' },
+  { key:'duocats',   name:'دوستان غروب', tier:'rare',   photo:'images/bg-photo-duocats.jpg', preview:'images/store-preview-duocats.jpg', overlay:'rgba(30,10,0,.28)' },
+  { key:'cave',      name:'شروع از صفر', tier:'epic',   photo:'images/rezero.png', overlay:'rgba(2,2,4,.3)' }
+  // video example — needs a poster image for the store thumbnail:
+  // { key:'rain', name:'بارون', tier:'epic', video:'images/rain.mp4', preview:'images/rain-poster.jpg' }
+];
+
+function renderCustomBgPacks() {
+  CUSTOM_BG_PACKS.forEach(pack => {
+    BG_THEMES[pack.key] = {
+      photo: pack.photo || null,
+      video: pack.video || null,
+      overlay: pack.overlay || 'rgba(0,0,0,.3)',
+      filter: 'none'
+    };
+
+    const grid = document.querySelector('#bg-tier-' + pack.tier + ' .store-tier-grid');
+    if (!grid) { console.warn('Unknown tier "' + pack.tier + '" for bg pack "' + pack.key + '" — skipped.'); return; }
+
+    const previewSrc = pack.preview || pack.photo || '';
+    const card = document.createElement('div');
+    card.className = 'store-card';
+    card.dataset.key = pack.key;
+    card.onclick = () => selectBg(card);
+    card.innerHTML =
+      '<div class="bg-preview" style="background-image:url(\'' + previewSrc + '\');"></div>' +
+      '<div class="store-card-name">' + pack.name + '</div>' +
+      '<div class="store-card-tag price-tag">انتخاب</div>';
+    grid.appendChild(card);
+  });
+}
 
 
 function applyBlockTheme(key) {
@@ -405,9 +450,20 @@ function applyBlockTheme(key) {
 function applyBgTheme(key) {
   if (!BG_THEMES[key]) key = 'night';
   const t = BG_THEMES[key];
-  const layer = document.getElementById('bg-layer'), overlay = document.getElementById('bg-overlay');
-  if (layer) {
-    layer.style.backgroundImage = t.photo ? `url('${t.photo}')` : '';
+  const layer = document.getElementById('bg-layer');
+  const video = document.getElementById('bg-video');
+  const overlay = document.getElementById('bg-overlay');
+  if (layer && video) {
+    if (t.video) {
+      layer.style.backgroundImage = '';
+      if (video.getAttribute('src') !== t.video) video.setAttribute('src', t.video);
+      video.style.display = 'block';
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+      video.style.display = 'none';
+      layer.style.backgroundImage = t.photo ? `url('${t.photo}')` : '';
+    }
     layer.style.filter = t.filter;
   }
   if (overlay) overlay.style.background = t.overlay;
@@ -1291,6 +1347,7 @@ function spawnFloatingBlocks() {
 function initApp() {
   document.getElementById('best-display').textContent = bestScore.toLocaleString('en-US');
   renderCustomBlockPacks();
+  renderCustomBgPacks();
   applyBlockTheme(localStorage.getItem('mc_theme') || 'classic');
   applyBgTheme(localStorage.getItem('mc_bg') || 'night');
   renderBoosterCounts();
