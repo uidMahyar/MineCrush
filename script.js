@@ -326,17 +326,55 @@ const G = 7;
 const TYPES = ['diamond', 'redstone', 'emerald', 'gold'];
 
 // ── STORE: BLOCK THEMES & BACKGROUNDS (visual filters, no new art needed) ──
-const BLOCK_THEMES = { classic: 1, nether: 1, ocean: 1, crystal: 1, classic2: 1 };
-// classic2 swaps in real replacement art per type instead of tinting the default gems
-const BLOCK_IMAGE_SETS = {
-  classic2: {
-    diamond:  'images/enderman.png',
-    redstone: 'images/skeleton.png',
-    emerald:  'images/villager.png',
-    gold:     'images/creeper.png'
-  }
-};
+const BLOCK_THEMES = { classic: 1, nether: 1, ocean: 1, crystal: 1 };
+const BLOCK_IMAGE_SETS = {};
 const CLASSIC_BLOCK_IMG = { ...BLOCK_IMG }; // snapshot of the default gem art, used to restore non-image themes
+
+// ── CUSTOM BLOCK-SKIN PACKS ──────────────────────────────────────────
+// To add a new pack: copy one {...} entry below, change key/name/tier/images, done.
+//   key    → unique id, English, no spaces (used internally only, never shown)
+//   name   → Persian name shown on the store card
+//   tier   → 'common' | 'rare' | 'epic' | 'legendary'
+//   images → one file per block type; put the actual PNGs in images/
+const CUSTOM_BLOCK_PACKS = [
+  {
+    key: 'classic2',
+    name: 'کلاسیک ۲',
+    tier: 'rare',
+    images: {
+      diamond:  'images/enderman.png',
+      redstone: 'images/skeleton.png',
+      emerald:  'images/villager.png',
+      gold:     'images/creeper.png'
+    }
+  }
+  // add more packs here, separated by commas, same shape as above ↑
+];
+
+function renderCustomBlockPacks() {
+  CUSTOM_BLOCK_PACKS.forEach(pack => {
+    BLOCK_THEMES[pack.key] = 1;
+    BLOCK_IMAGE_SETS[pack.key] = pack.images;
+
+    const grid = document.querySelector('#theme-tier-' + pack.tier + ' .store-tier-grid');
+    if (!grid) { console.warn('Unknown tier "' + pack.tier + '" for pack "' + pack.key + '" — skipped.'); return; }
+
+    const card = document.createElement('div');
+    card.className = 'store-card';
+    card.dataset.key = pack.key;
+    card.onclick = () => selectTheme(card);
+    card.innerHTML =
+      '<div class="theme-preview">' +
+        '<div class="theme-swatch"><img src="' + pack.images.diamond + '" alt="diamond"></div>' +
+        '<div class="theme-swatch"><img src="' + pack.images.redstone + '" alt="redstone"></div>' +
+        '<div class="theme-swatch"><img src="' + pack.images.emerald + '" alt="emerald"></div>' +
+        '<div class="theme-swatch"><img src="' + pack.images.gold + '" alt="gold"></div>' +
+      '</div>' +
+      '<div class="store-card-name">' + pack.name + '</div>' +
+      '<div class="store-card-tag price-tag">انتخاب</div>';
+    grid.appendChild(card);
+  });
+}
 const BG_THEMES = {
   sunset: { overlay: 'rgba(4,0,18,.5)',  filter: 'none' },
   night:  { photo: 'images/dark.png',   overlay: 'rgba(5,8,35,.3)', filter: 'none' },
@@ -1252,6 +1290,7 @@ function spawnFloatingBlocks() {
 // ── INIT ───────────────────────────────────────────────────
 function initApp() {
   document.getElementById('best-display').textContent = bestScore.toLocaleString('en-US');
+  renderCustomBlockPacks();
   applyBlockTheme(localStorage.getItem('mc_theme') || 'classic');
   applyBgTheme(localStorage.getItem('mc_bg') || 'night');
   renderBoosterCounts();
