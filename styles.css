@@ -36,6 +36,7 @@ html,body{
   100%{transform:scale(1.06) translate(0,0);}
 }
 #bg-overlay{position:fixed;inset:0;z-index:1;background:rgba(4,0,18,0.5);}
+#bg-video{position:fixed;inset:-6%;z-index:0;object-fit:cover;display:none;animation:bgDrift 30s ease-in-out infinite;}
 #flash-overlay{
   position:fixed;inset:0;z-index:1500;pointer-events:none;
   background:#fff;opacity:0;mix-blend-mode:overlay;
@@ -412,10 +413,10 @@ html,body{
 /* idle breathing — subtle life on the board between moves; transform-only, cheap, and lives on the
    inner img (not .blk) so it never fights the swap/pop transforms applied to their parent */
 @keyframes idleBreath{
-  0%,100%{transform:translateZ(0) scale(1);}
-  50%{transform:translateZ(0) scale(1.03);}
+  0%,100%{transform:translateZ(0) scale(1);filter:brightness(1) drop-shadow(0 2px 5px rgba(0,0,0,.7));}
+  50%{transform:translateZ(0) scale(1.07);filter:brightness(1.12) drop-shadow(0 2px 5px rgba(0,0,0,.7));}
 }
-.bi img{animation:idleBreath 3.2s ease-in-out infinite;}
+.bi img{animation:idleBreath 2.6s ease-in-out infinite;}
 .blk.locked .bi img{animation:none;}
 .cell:nth-child(7n+1) .bi img{animation-delay:0s;}
 .cell:nth-child(7n+2) .bi img{animation-delay:.2s;}
