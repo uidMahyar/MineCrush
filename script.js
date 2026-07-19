@@ -463,7 +463,7 @@ const CUSTOM_BG_PACKS = [
   { key:'dog',       name:'خانه',        tier:'epic',   video:'images/dog.mp4',      preview:'images/dogp.png' },
   { key:'nature',    name:'طبیعت',       tier:'epic',   video:'images/nature.mp4',  preview:'images/naturep.png' },
   { key:'pixels',    name:'پیکسل',       tier:'rare',   video:'images/pixelw.mp4',  preview:'images/pixelp.png'},
-  { key:'pixels',    name: 'پیکسل 2',    tier:'rare',   video:'images/pixelw2.mp4', preview:'images/pixelp2.png'},
+  { key:'pixels2',    name: 'پیکسل 2',    tier:'rare',   video:'images/pixelw2.mp4', preview:'images/pixelp2.png'},
   { key:'iranw',     name: 'ایران',       tier:'legend', video:'images/iranw.mp4',   preview:'images/iranp.png'}
   // video example — needs a poster image for the store thumbnail:
   // { key:'rain', name:'بارون', tier:'epic', video:'images/rain.mp4', preview:'images/rain-poster.jpg' }
