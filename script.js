@@ -378,18 +378,6 @@ const CUSTOM_BLOCK_PACKS = [
       emerald: 'images/villager.png',
       gold: 'images/creeper.png'
     }
-  },
-
-  {
-    key: 'animepack',
-    name: 'آرامش روانی',
-    tier: 'epic',
-    images: {
-      diamond: 'images/4.png',
-      redstone: 'images/3.png',
-      emerald: 'images/2.png',
-      gold: 'images/1.png'
-    }
   }
 ];
   // add more packs here, separated by commas, same shape as above ↑
