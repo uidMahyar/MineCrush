@@ -384,10 +384,10 @@ const CUSTOM_BLOCK_PACKS = [
     name: 'تاریخ',
     tier: 'legendary',
     images: {
-      diamond:  'images/iran1.png',
-      redstone: 'images/iran2.png',
-      emerald:  'images/iran3.png',
-      gold:     'images/iran4.png'
+      diamond:  'images/1.png',
+      redstone: 'images/2.png',
+      emerald:  'images/3.png',
+      gold:     'images/4.png'
     }
   }
   // add more packs here, separated by commas, same shape as above ↑
