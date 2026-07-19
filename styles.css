@@ -622,9 +622,8 @@ html,body{
 .vol-row input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:rgba(255,255,255,.15);outline:none;}
 .vol-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(85,255,85,.6);cursor:pointer;}
 .vol-row input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(85,255,85,.6);cursor:pointer;}
-.pause-btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:rgba(0,20,0,.85);border:2px solid var(--accent);color:var(--accent);padding:14px;cursor:pointer;}
-.pause-btn img{width:26px;height:26px;object-fit:contain;}
-.pause-btn.leave{border-color:#ff4444;color:#ff4444;background:rgba(30,0,0,.85);}
+.pause-btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:transparent;border:none;padding:10px;cursor:pointer;}
+.pause-btn img{width:100%;height:90px;object-fit:contain;}
 .pause-btn:active{transform:scale(.94);}
 
 /* ── RIPPLE ── */
