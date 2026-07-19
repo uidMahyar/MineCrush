@@ -379,7 +379,7 @@ const CUSTOM_BLOCK_PACKS = [
       gold: 'images/creeper.png'
     }
   },
-  
+
   {
     key: 'FuckingPack',
     name: 'آرامش روانی',
@@ -393,7 +393,6 @@ const CUSTOM_BLOCK_PACKS = [
   }
 ];
   // add more packs here, separated by commas, same shape as above ↑
-
 function renderCustomBlockPacks() {
   CUSTOM_BLOCK_PACKS.forEach(pack => {
     BLOCK_THEMES[pack.key] = 1;
