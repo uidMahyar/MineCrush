@@ -243,8 +243,8 @@
       <button id="lose-btn" onclick="voluntaryLose()" title="تسلیم شدن">
         <img src="images/icon-surrender.png" alt="تسلیم شدن">
       </button>
-      <button id="snd-btn" onclick="toggleSound()" title="موسیقی">
-        <img src="images/icon-sound.png" alt="موسیقی">
+      <button id="stop-btn" onclick="openPausePanel()" title="توقف">
+        <img src="images/stop.png" alt="توقف">
       </button>
     </div>
   </div>
@@ -314,6 +314,29 @@
     <div class="confirm-row">
       <button class="cbtn red" onclick="doRestart()">بله</button>
       <button class="cbtn" onclick="closeConfirm()">لغو</button>
+    </div>
+  </div>
+
+  <!-- Pause Panel -->
+  <div id="pause-overlay">
+    <div id="pause-panel">
+      <button id="pause-close-btn" onclick="resumeGame()"><img src="images/back.png" alt="بستن"></button>
+
+      <div class="vol-row">
+        <span class="vol-label">صدای آهنگ</span>
+        <input type="range" id="music-vol" min="0" max="100" oninput="setMusicVolume(this.value)">
+      </div>
+      <div class="vol-row">
+        <span class="vol-label">صدای بازی</span>
+        <input type="range" id="sfx-vol" min="0" max="100" oninput="setSfxVolume(this.value)">
+      </div>
+
+      <button class="pause-btn" onclick="resumeGame()">
+        <img src="images/resume.png" alt="ادامه">ادامه بازی
+      </button>
+      <button class="pause-btn leave" onclick="leaveLevel()">
+        <img src="images/leave.png" alt="خروج">خروج از مرحله
+      </button>
     </div>
   </div>
 
