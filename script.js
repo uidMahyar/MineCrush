@@ -373,25 +373,26 @@ const CUSTOM_BLOCK_PACKS = [
     name: 'کلاسیک ۲',
     tier: 'rare',
     images: {
-      diamond:  'images/enderman.png',
+      diamond: 'images/enderman.png',
       redstone: 'images/skeleton.png',
-      emerald:  'images/villager.png',
-      gold:     'images/creeper.png'
+      emerald: 'images/villager.png',
+      gold: 'images/creeper.png'
+    }
+  },
+  
+  {
+    key: 'FuckingPack',
+    name: 'آرامش روانی',
+    tier: 'epic',
+    images: {
+      diamond: 'images/4.png',
+      redstone: 'images/3.png',
+      emerald: 'images/2.png',
+      gold: 'images/1.png'
     }
   }
-  {
-  key: 'FuckingPack',
-  name: 'آرامش روانی',
-  tier: 'epic',
-  images: {
-    diamond:  'images/4.png',
-    redstone: 'images/3.png',
-    emerald:  'images/2.png',
-    gold:     'images/1.png'
-  }
-}
-  // add more packs here, separated by commas, same shape as above ↑
 ];
+  // add more packs here, separated by commas, same shape as above ↑
 
 function renderCustomBlockPacks() {
   CUSTOM_BLOCK_PACKS.forEach(pack => {
