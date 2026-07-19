@@ -381,7 +381,7 @@ const CUSTOM_BLOCK_PACKS = [
   },
 
   {
-    key: 'FuckingPack',
+    key: 'animepack',
     name: 'آرامش روانی',
     tier: 'epic',
     images: {
