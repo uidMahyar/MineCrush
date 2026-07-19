@@ -698,10 +698,10 @@ function crackEffect(r, c) {
   cell.blk.classList.remove('do-crack'); void cell.blk.offsetWidth; cell.blk.classList.add('do-crack');
   setTimeout(() => cell.blk.classList.remove('do-crack'), 260);
   const rect = cellRects[r]?.[c] || cell.cell.getBoundingClientRect();
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 3; i++) {
     const p = getParticle();
-    const a = Math.PI * 2 * i / 5, d = 12 + Math.random() * 16;
-    p.style.cssText = `position:fixed;width:4px;height:4px;background:#bfe8ff;border-radius:1px;left:${rect.left + rect.width / 2}px;top:${rect.top + rect.height / 2}px;pointer-events:none;z-index:999;transition:transform .3s ease-out,opacity .3s;`;
+    const a = Math.PI * 2 * i / 3, d = 10 + Math.random() * 12;
+    p.style.cssText = `position:fixed;width:4px;height:4px;background:#bfe8ff;border-radius:1px;left:${rect.left + rect.width / 2}px;top:${rect.top + rect.height / 2}px;pointer-events:none;z-index:999;transition:transform .3s ease-out,opacity .3s;will-change:transform;`;
     document.body.appendChild(p);
     requestAnimationFrame(() => { p.style.transform = `translate(${Math.cos(a) * d}px,${Math.sin(a) * d}px)`; p.style.opacity = '0'; });
     setTimeout(() => { try { document.body.removeChild(p); } catch (e) {} retParticle(p); }, 320);
@@ -1163,10 +1163,10 @@ function particles(r, c, type) {
   if (!rect) return;
   const color = CLR[type] || '#fff';
   const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 3; i++) {
     const p = getParticle();
-    const a = Math.PI * 2 * i / 5, d = 14 + Math.random() * 18;
-    p.style.cssText = `position:fixed;width:4px;height:4px;background:${color};border-radius:1px;left:${cx}px;top:${cy}px;pointer-events:none;z-index:999;transition:transform .32s ease-out,opacity .32s;`;
+    const a = Math.PI * 2 * i / 3, d = 14 + Math.random() * 18;
+    p.style.cssText = `position:fixed;width:4px;height:4px;background:${color};border-radius:1px;left:${cx}px;top:${cy}px;pointer-events:none;z-index:999;transition:transform .32s ease-out,opacity .32s;will-change:transform;`;
     document.body.appendChild(p);
     requestAnimationFrame(() => { p.style.transform = `translate(${Math.cos(a) * d}px,${Math.sin(a) * d}px)`; p.style.opacity = '0'; });
     setTimeout(() => { try { document.body.removeChild(p); } catch (e) {} retParticle(p); }, 350);
