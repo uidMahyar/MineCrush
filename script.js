@@ -373,14 +373,26 @@ const CUSTOM_BLOCK_PACKS = [
     name: 'کلاسیک ۲',
     tier: 'rare',
     images: {
-      diamond: 'images/enderman.png',
+      diamond:  'images/enderman.png',
       redstone: 'images/skeleton.png',
-      emerald: 'images/villager.png',
-      gold: 'images/creeper.png'
+      emerald:  'images/villager.png',
+      gold:     'images/creeper.png'
     }
+  }, 
+  {
+  key: 'iranhistory',
+  name: 'تاریخ',
+  tier: 'legend',
+  images: {
+    diamond:  'images/iran1.png',
+    redstone: 'images/iran2.png',
+    emerald:  'images/iran3.png',
+    gold:     'images/iran4.png'
   }
-];
+}
   // add more packs here, separated by commas, same shape as above ↑
+];
+
 function renderCustomBlockPacks() {
   CUSTOM_BLOCK_PACKS.forEach(pack => {
     BLOCK_THEMES[pack.key] = 1;
@@ -698,10 +710,10 @@ function crackEffect(r, c) {
   cell.blk.classList.remove('do-crack'); void cell.blk.offsetWidth; cell.blk.classList.add('do-crack');
   setTimeout(() => cell.blk.classList.remove('do-crack'), 260);
   const rect = cellRects[r]?.[c] || cell.cell.getBoundingClientRect();
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     const p = getParticle();
-    const a = Math.PI * 2 * i / 3, d = 10 + Math.random() * 12;
-    p.style.cssText = `position:fixed;width:4px;height:4px;background:#bfe8ff;border-radius:1px;left:${rect.left + rect.width / 2}px;top:${rect.top + rect.height / 2}px;pointer-events:none;z-index:999;transition:transform .3s ease-out,opacity .3s;will-change:transform;`;
+    const a = Math.PI * 2 * i / 5, d = 12 + Math.random() * 16;
+    p.style.cssText = `position:fixed;width:4px;height:4px;background:#bfe8ff;border-radius:1px;left:${rect.left + rect.width / 2}px;top:${rect.top + rect.height / 2}px;pointer-events:none;z-index:999;transition:transform .3s ease-out,opacity .3s;`;
     document.body.appendChild(p);
     requestAnimationFrame(() => { p.style.transform = `translate(${Math.cos(a) * d}px,${Math.sin(a) * d}px)`; p.style.opacity = '0'; });
     setTimeout(() => { try { document.body.removeChild(p); } catch (e) {} retParticle(p); }, 320);
@@ -1166,7 +1178,7 @@ function particles(r, c, type) {
   for (let i = 0; i < 3; i++) {
     const p = getParticle();
     const a = Math.PI * 2 * i / 3, d = 14 + Math.random() * 18;
-    p.style.cssText = `position:fixed;width:4px;height:4px;background:${color};border-radius:1px;left:${cx}px;top:${cy}px;pointer-events:none;z-index:999;transition:transform .32s ease-out,opacity .32s;will-change:transform;`;
+    p.style.cssText = `position:fixed;width:4px;height:4px;background:${color};border-radius:1px;left:${cx}px;top:${cy}px;pointer-events:none;z-index:999;transition:transform .32s ease-out,opacity .32s;`;
     document.body.appendChild(p);
     requestAnimationFrame(() => { p.style.transform = `translate(${Math.cos(a) * d}px,${Math.sin(a) * d}px)`; p.style.opacity = '0'; });
     setTimeout(() => { try { document.body.removeChild(p); } catch (e) {} retParticle(p); }, 350);
