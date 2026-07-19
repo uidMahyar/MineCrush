@@ -204,6 +204,10 @@ const BLOCK_IMG = {
 // ── AUDIO ENGINE ──────────────────────────────────────────
 let AC = null, bgGain, sfxGain, musicTimer = null, soundOn = true;
 let reverbNode = null, reverbSend = null;
+let paused = false;
+let musicVolPct = clampVol(localStorage.getItem('mc_music_vol'));
+let sfxVolPct = clampVol(localStorage.getItem('mc_sfx_vol'));
+function clampVol(v) { v = parseInt(v, 10); return Number.isFinite(v) ? Math.max(0, Math.min(100, v)) : 100; }
 
 function makeReverb() {
   const len = AC.sampleRate * 1.8;
@@ -221,12 +225,12 @@ function initSFX() {
   if (AC) return;
   try {
     AC = new (window.AudioContext || window.webkitAudioContext)();
-    bgGain = AC.createGain(); bgGain.gain.value = 0.10;
+    bgGain = AC.createGain(); bgGain.gain.value = 0.10 * (musicVolPct / 100);
     reverbNode = makeReverb();
     reverbSend = AC.createGain(); reverbSend.gain.value = 0.5;
     bgGain.connect(reverbSend); reverbSend.connect(reverbNode); reverbNode.connect(AC.destination);
     bgGain.connect(AC.destination);
-    sfxGain = AC.createGain(); sfxGain.gain.value = 0.38; sfxGain.connect(AC.destination);
+    sfxGain = AC.createGain(); sfxGain.gain.value = 0.38 * (sfxVolPct / 100); sfxGain.connect(AC.destination);
     if (soundOn) setTimeout(() => { beatIdx = 0; startMusic(); }, 150);
   } catch (e) { AC = null; }
 }
@@ -314,11 +318,38 @@ function startMusic() {
   musicTimer = setInterval(tick, BPM);
 }
 
-function toggleSound() {
-  soundOn = !soundOn;
-  document.getElementById('snd-btn').classList.toggle('muted', !soundOn);
-  if (soundOn) { if (bgGain) bgGain.gain.setTargetAtTime(0.10, AC.currentTime, 0.3); startMusic(); }
-  else { if (bgGain) bgGain.gain.setTargetAtTime(0, AC.currentTime, 0.3); clearInterval(musicTimer); }
+function openPausePanel() {
+  initSFX(); SFX.click();
+  paused = true;
+  document.getElementById('music-vol').value = musicVolPct;
+  document.getElementById('sfx-vol').value = sfxVolPct;
+  document.getElementById('pause-overlay').style.display = 'flex';
+}
+
+function resumeGame() {
+  SFX.click();
+  paused = false;
+  document.getElementById('pause-overlay').style.display = 'none';
+}
+
+function leaveLevel() {
+  SFX.click();
+  paused = false;
+  document.getElementById('pause-overlay').style.display = 'none';
+  clearInterval(musicTimer);
+  showScreen('levels');
+}
+
+function setMusicVolume(pct) {
+  musicVolPct = clampVol(pct);
+  localStorage.setItem('mc_music_vol', musicVolPct);
+  if (bgGain && AC) bgGain.gain.setTargetAtTime(0.10 * (musicVolPct / 100), AC.currentTime, 0.05);
+}
+
+function setSfxVolume(pct) {
+  sfxVolPct = clampVol(pct);
+  localStorage.setItem('mc_sfx_vol', sfxVolPct);
+  if (sfxGain && AC) sfxGain.gain.setTargetAtTime(0.38 * (sfxVolPct / 100), AC.currentTime, 0.05);
 }
 
 // ── CONSTANTS ──────────────────────────────────────────────
@@ -790,7 +821,7 @@ function animateScoreTo(target) {
 const getCell = (r, c) => cellEls[r]?.[c]?.cell;
 
 // ── INPUT ─────────────────────────────────────────────
-function onDown(e, r, c) { if (ended || busy) return; ptrStart = { r, c, x: e.clientX, y: e.clientY }; }
+function onDown(e, r, c) { if (ended || busy || paused) return; ptrStart = { r, c, x: e.clientX, y: e.clientY }; }
 
 function onUp(e, r, c) {
   if (armedBooster) {
@@ -799,7 +830,7 @@ function onUp(e, r, c) {
     document.querySelectorAll('.boost-btn').forEach(b => b.classList.remove('armed'));
     document.getElementById('grid').classList.remove('booster-armed');
     ptrStart = null;
-    if (busy || ended || !grid[r][c]) return;
+    if (busy || ended || paused || !grid[r][c]) return;
     spendBooster(type);
     busy = true; cascade = 0;
     if (type === 'hammer') {
@@ -1318,7 +1349,7 @@ function addRipple(el) {
 }
 
 function setupRipples() {
-  document.querySelectorAll('.big-btn,#play-btn,#snd-btn,#rst-btn,#lose-btn,.cbtn,.lvl-circle,#back-btn,#store-back-btn,.store-tab,.tier-jump-pill').forEach(addRipple);
+  document.querySelectorAll('.big-btn,#play-btn,#stop-btn,#rst-btn,#lose-btn,.cbtn,.lvl-circle,#back-btn,#store-back-btn,.store-tab,.tier-jump-pill,#pause-close-btn,.pause-btn').forEach(addRipple);
 }
 
 // ── FLOATING BLOCKS (start screen bg) ─────────────────────
