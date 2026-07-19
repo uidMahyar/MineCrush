@@ -25,18 +25,18 @@ html,body{
 
 /* ── BACKGROUND ── */
 #bg-layer{
-  position:fixed;inset:-6%;z-index:0;
+  position:fixed;inset:-1.5%;z-index:0;
   background:url('images/bg-main.jpg') center/cover no-repeat;
   animation:bgDrift 30s ease-in-out infinite;
   will-change:transform;
 }
 @keyframes bgDrift{
-  0%{transform:scale(1.06) translate(0,0);}
-  50%{transform:scale(1.12) translate(-1.3%,-1%);}
-  100%{transform:scale(1.06) translate(0,0);}
+  0%{transform:scale(1) translate(0,0);}
+  50%{transform:scale(1.015) translate(-0.5%,-0.4%);}
+  100%{transform:scale(1) translate(0,0);}
 }
 #bg-overlay{position:fixed;inset:0;z-index:1;background:rgba(4,0,18,0.5);}
-#bg-video{position:fixed;inset:-6%;z-index:0;object-fit:cover;display:none;animation:bgDrift 30s ease-in-out infinite;transform-origin:center center;will-change:transform;}
+#bg-video{position:fixed;inset:-1.5%;z-index:0;object-fit:cover;display:none;animation:bgDrift 30s ease-in-out infinite;transform-origin:center center;will-change:transform;}
 #flash-overlay{
   position:fixed;inset:0;z-index:1500;pointer-events:none;
   background:#fff;opacity:0;mix-blend-mode:overlay;
