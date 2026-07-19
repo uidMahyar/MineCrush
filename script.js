@@ -389,7 +389,18 @@ const CUSTOM_BLOCK_PACKS = [
       emerald:  'images/3.png',
       gold:     'images/4.png'
     }
-  }
+  },
+  {
+  key: 'countries',
+  name: 'کشورها',
+  tier: 'epic',
+  images: {
+    diamond:  'images/country4.png',
+    redstone: 'images/country3.png',
+    emerald:  'images/country2.png',
+    gold:     'images/country1.png'
+  }
+}
   // add more packs here, separated by commas, same shape as above ↑
 ];
 
