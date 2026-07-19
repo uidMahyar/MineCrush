@@ -36,7 +36,7 @@ html,body{
   100%{transform:scale(1.06) translate(0,0);}
 }
 #bg-overlay{position:fixed;inset:0;z-index:1;background:rgba(4,0,18,0.5);}
-#bg-video{position:fixed;inset:-6%;z-index:0;object-fit:cover;display:none;animation:bgDrift 30s ease-in-out infinite;}
+#bg-video{position:fixed;inset:-6%;z-index:0;object-fit:cover;display:none;animation:bgDrift 30s ease-in-out infinite;transform-origin:center center;will-change:transform;}
 #flash-overlay{
   position:fixed;inset:0;z-index:1500;pointer-events:none;
   background:#fff;opacity:0;mix-blend-mode:overlay;
@@ -412,10 +412,10 @@ html,body{
 /* idle breathing — subtle life on the board between moves; transform-only, cheap, and lives on the
    inner img (not .blk) so it never fights the swap/pop transforms applied to their parent */
 @keyframes idleBreath{
-  0%,100%{transform:translateZ(0) scale(1);filter:brightness(1) drop-shadow(0 2px 5px rgba(0,0,0,.7));}
-  50%{transform:translateZ(0) scale(1.07);filter:brightness(1.12) drop-shadow(0 2px 5px rgba(0,0,0,.7));}
+  0%,100%{transform:translateZ(0) scale(1);}
+  50%{transform:translateZ(0) scale(1.035);}
 }
-.bi img{animation:idleBreath 2.6s ease-in-out infinite;}
+.bi img{animation:idleBreath 3.2s ease-in-out infinite;}
 .blk.locked .bi img{animation:none;}
 .cell:nth-child(7n+1) .bi img{animation-delay:0s;}
 .cell:nth-child(7n+2) .bi img{animation-delay:.2s;}
@@ -638,9 +638,9 @@ html,body{
 .vol-row input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:rgba(255,255,255,.15);outline:none;}
 .vol-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(85,255,85,.6);cursor:pointer;}
 .vol-row input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(85,255,85,.6);cursor:pointer;}
-.pause-btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(0,20,0,.85);border:2px solid var(--accent);color:var(--accent);font-family:'Press Start 2P','FireBlock',monospace;font-size:10px;padding:12px 14px;cursor:pointer;letter-spacing:1px;}
-.pause-btn img{width:18px;height:18px;object-fit:contain;}
-.pause-btn.leave{border-color:#ff4444;color:#ff4444;background:rgba(30,0,0,.85);}
+.pause-btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:transparent;border:none;padding:6px;cursor:pointer;font-size:0;}
+.pause-btn img{width:56px;height:56px;object-fit:contain;}
+.pause-btn.leave{border:none;background:transparent;}
 .pause-btn:active{transform:scale(.94);}
 
 /* ── RIPPLE ── */
