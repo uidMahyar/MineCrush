@@ -25,18 +25,18 @@ html,body{
 
 /* ── BACKGROUND ── */
 #bg-layer{
-  position:fixed;inset:-1.5%;z-index:0;
+  position:fixed;inset:-6%;z-index:0;
   background:url('images/bg-main.jpg') center/cover no-repeat;
   animation:bgDrift 30s ease-in-out infinite;
   will-change:transform;
 }
 @keyframes bgDrift{
-  0%{transform:scale(1) translate(0,0);}
-  50%{transform:scale(1.015) translate(-0.5%,-0.4%);}
-  100%{transform:scale(1) translate(0,0);}
+  0%{transform:scale(1.06) translate(0,0);}
+  50%{transform:scale(1.12) translate(-1.3%,-1%);}
+  100%{transform:scale(1.06) translate(0,0);}
 }
 #bg-overlay{position:fixed;inset:0;z-index:1;background:rgba(4,0,18,0.5);}
-#bg-video{position:fixed;inset:-1.5%;z-index:0;object-fit:cover;display:none;animation:bgDrift 30s ease-in-out infinite;transform-origin:center center;will-change:transform;}
+#bg-video{position:fixed;inset:-6%;z-index:0;object-fit:cover;display:none;animation:bgDrift 30s ease-in-out infinite;}
 #flash-overlay{
   position:fixed;inset:0;z-index:1500;pointer-events:none;
   background:#fff;opacity:0;mix-blend-mode:overlay;
@@ -409,22 +409,6 @@ html,body{
 .bi img{width:96%;height:96%;object-fit:contain;image-rendering:pixelated;pointer-events:none;filter:drop-shadow(0 2px 5px rgba(0,0,0,.7));transform:translateZ(0);}
 .si{position:absolute;font-size:clamp(9px,calc(var(--cell)*.28),14px);bottom:1px;right:2px;z-index:10;color:#fff;text-shadow:0 0 6px #000,0 0 12px #000;pointer-events:none;}
 
-/* idle breathing — subtle life on the board between moves; transform-only, cheap, and lives on the
-   inner img (not .blk) so it never fights the swap/pop transforms applied to their parent */
-@keyframes idleBreath{
-  0%,100%{transform:translateZ(0) scale(1);}
-  50%{transform:translateZ(0) scale(1.035);}
-}
-.bi img{animation:idleBreath 3.2s ease-in-out infinite;}
-.blk.locked .bi img{animation:none;}
-.cell:nth-child(7n+1) .bi img{animation-delay:0s;}
-.cell:nth-child(7n+2) .bi img{animation-delay:.2s;}
-.cell:nth-child(7n+3) .bi img{animation-delay:.4s;}
-.cell:nth-child(7n+4) .bi img{animation-delay:.6s;}
-.cell:nth-child(7n+5) .bi img{animation-delay:.8s;}
-.cell:nth-child(7n+6) .bi img{animation-delay:1s;}
-.cell:nth-child(7n) .bi img{animation-delay:1.2s;}
-
 /* Grid entrance */
 .enter-drop{animation:dropEnter .32s cubic-bezier(.2,.9,.3,1.05) both;animation-delay:var(--ed,0s);}
 @keyframes dropEnter{
@@ -638,9 +622,9 @@ html,body{
 .vol-row input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:rgba(255,255,255,.15);outline:none;}
 .vol-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(85,255,85,.6);cursor:pointer;}
 .vol-row input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(85,255,85,.6);cursor:pointer;}
-.pause-btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:transparent;border:none;padding:6px;cursor:pointer;font-size:0;}
-.pause-btn img{width:56px;height:56px;object-fit:contain;}
-.pause-btn.leave{border:none;background:transparent;}
+.pause-btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:rgba(0,20,0,.85);border:2px solid var(--accent);color:var(--accent);padding:14px;cursor:pointer;}
+.pause-btn img{width:26px;height:26px;object-fit:contain;}
+.pause-btn.leave{border-color:#ff4444;color:#ff4444;background:rgba(30,0,0,.85);}
 .pause-btn:active{transform:scale(.94);}
 
 /* ── RIPPLE ── */
