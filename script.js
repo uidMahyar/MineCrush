@@ -433,6 +433,9 @@ const CUSTOM_BG_PACKS = [
   { key:'forest',    name:'غروب',        tier:'rare',   photo:'images/noon.png', overlay:'rgba(6,25,10,.3)' },
   { key:'duocats',   name:'دوستان غروب', tier:'rare',   photo:'images/bg-photo-duocats.jpg', preview:'images/store-preview-duocats.jpg', overlay:'rgba(30,10,0,.28)' },
   { key:'cave',      name:'شروع از صفر', tier:'epic',   photo:'images/rezero.png', overlay:'rgba(2,2,4,.3)' }
+  { key:'dog',        name:'آرامش',       tier:'epic',     video:'images/dog.mp4',            preview:'images/dogp.png'}
+  { key:'nature',     name:'طبیعت',       tier:'epic',     video:'images/nature.mp4',        preview:'images/naturep.png'}
+  { key:'dognoon',    name: 'غروب',       tier:'legend',   video:'images/dognoon.mp4',       preview:'images/dognoonp.png'}
   // video example — needs a poster image for the store thumbnail:
   // { key:'rain', name:'بارون', tier:'epic', video:'images/rain.mp4', preview:'images/rain-poster.jpg' }
 ];
