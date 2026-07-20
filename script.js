@@ -16,6 +16,10 @@ function showScreen(name) {
   document.getElementById('nav-levels-btn').classList.toggle('nav-active', name === 'levels');
   document.getElementById('nav-store-btn').classList.toggle('nav-active', name === 'store');
   if (name === 'levels') buildLevelPath();
+  if (name === 'game') {
+    const video = document.getElementById('bg-video');
+    if (video && video.style.display === 'block') video.play().catch(() => {});
+  }
 }
 
 function goToLevels() {
@@ -330,6 +334,8 @@ function resumeGame() {
   SFX.click();
   paused = false;
   document.getElementById('pause-overlay').style.display = 'none';
+  const video = document.getElementById('bg-video');
+  if (video && video.style.display === 'block') video.play().catch(() => {});
 }
 
 function leaveLevel() {
@@ -384,23 +390,12 @@ const CUSTOM_BLOCK_PACKS = [
     name: 'تاریخ',
     tier: 'legendary',
     images: {
-      diamond:  'images/1.png',
-      redstone: 'images/2.png',
-      emerald:  'images/3.png',
-      gold:     'images/4.png'
+      diamond:  'images/iran1.png',
+      redstone: 'images/iran2.png',
+      emerald:  'images/iran3.png',
+      gold:     'images/iran4.png'
     }
-  },
-  {
-  key: 'countries',
-  name: 'کشورها',
-  tier: 'epic',
-  images: {
-    diamond:  'images/country4.png',
-    redstone: 'images/country3.png',
-    emerald:  'images/country2.png',
-    gold:     'images/country1.png'
-  }
-}
+  }
   // add more packs here, separated by commas, same shape as above ↑
 ];
 
@@ -452,19 +447,16 @@ const BG_THEMES = {
 // Note: video is much heavier than a photo (file size, battery, decode cost) —
 // keep clips short and modestly sized if FPS/battery matters to you.
 const CUSTOM_BG_PACKS = [
-  { key:'classic',   name:'کلاسیک',      tier:'common',  photo:'images/classic.png' },
-  { key:'darkwoods', name:'جنگل تاریک',  tier:'common',   photo:'images/bg-photo-darkwoods.jpg', preview:'images/store-preview-darkwoods.jpg' },
-  { key:'moonpoppy', name:'دشت مهتابی',  tier:'common',  photo:'images/bg-photo-moonpoppy.jpg', preview:'images/store-preview-moonpoppy.jpg' },
-  { key:'night',     name:'شب تاریک',    tier:'rare',    photo:'images/dark.png', overlay:'rgba(5,8,35,.3)' },
+  { key:'classic',   name:'کلاسیک',      tier:'common', photo:'images/classic.png' },
+  { key:'darkwoods', name:'جنگل تاریک',  tier:'common', photo:'images/bg-photo-darkwoods.jpg', preview:'images/store-preview-darkwoods.jpg' },
+  { key:'moonpoppy', name:'دشت مهتابی',  tier:'common', photo:'images/bg-photo-moonpoppy.jpg', preview:'images/store-preview-moonpoppy.jpg' },
+  { key:'night',     name:'شب تاریک',    tier:'rare',   photo:'images/dark.png', overlay:'rgba(5,8,35,.3)' },
   { key:'forest',    name:'غروب',        tier:'rare',   photo:'images/noon.png', overlay:'rgba(6,25,10,.3)' },
-  { key:'duocats',   name:'دوستان غروب', tier:'rare',    photo:'images/bg-photo-duocats.jpg', preview:'images/store-preview-duocats.jpg', overlay:'rgba(30,10,0,.28)' },
-  { key:'cave',      name:'شروع از صفر', tier:'epic',    photo:'images/rezero.png', overlay:'rgba(2,2,4,.3)' },
-  { key:'dognoon',   name:'غروب آفتاب',  tier:'epic',    video:'images/dognoon.mp4', preview:'images/dognoonp.png' },
-  { key:'dog',       name:'خانه',        tier:'epic',   video:'images/dog.mp4',      preview:'images/dogp.png' },
-  { key:'nature',    name:'طبیعت',       tier:'epic',   video:'images/nature.mp4',  preview:'images/naturep.png' },
-  { key:'pixels',    name:'پیکسل',       tier:'rare',   video:'images/pixelw.mp4',  preview:'images/pixelp.png'},
-  { key:'pixels2',   name: 'پیکسل 2',    tier:'rare',   video:'images/pixelw2.mp4', preview:'images/pixelp2.png'},
-  { key:'iranw',     name: 'ایران',       tier:'legend', video:'images/iranw.mp4',   preview:'images/iranp.png'}
+  { key:'duocats',   name:'دوستان غروب', tier:'rare',   photo:'images/bg-photo-duocats.jpg', preview:'images/store-preview-duocats.jpg', overlay:'rgba(30,10,0,.28)' },
+  { key:'cave',      name:'شروع از صفر', tier:'epic',   photo:'images/rezero.png', overlay:'rgba(2,2,4,.3)' },
+  { key:'dognoon',   name:'غروب آفتاب',  tier:'epic',   video:'images/dognoon.mp4', preview:'images/dognoonp.png' },
+  { key:'dog',       name:'خانه',        tier:'epic',   video:'images/dog.mp4', preview:'images/dogp.png' },
+  { key:'nature',    name:'طبیعت',       tier:'epic',   video:'images/nature.mp4', preview:'images/naturep.png' }
   // video example — needs a poster image for the store thumbnail:
   // { key:'rain', name:'بارون', tier:'epic', video:'images/rain.mp4', preview:'images/rain-poster.jpg' }
 ];
