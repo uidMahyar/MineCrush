@@ -1,0 +1,9 @@
+{
+  "appId": "com.minecrush.game",
+  "appName": "MineCrush",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": true
+  }
+}

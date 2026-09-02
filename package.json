@@ -1,0 +1,15 @@
+{
+  "name": "my-game-app",
+  "version": "1.0.0",
+  "description": "Android wrapper for HTML/CSS/JS game via Capacitor",
+  "scripts": {
+    "sync": "npx cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/android": "^6.1.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  }
+}
